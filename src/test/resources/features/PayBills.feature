@@ -20,11 +20,11 @@ Feature:Pay Bills page features
   Scenario: Amount field should not accept alphabetical or special characters
     Then the user should not be able to make a payment using "abc"
 
-  @wip
+
   Scenario: Amount field should not accept alphabetical or special characters
     Then the user should not be able to make a payment with "@#"
 
-  @wip
+
   Scenario: Date field should not accept alphabetical characters
     Then date field should not accept "abc"
 

@@ -21,6 +21,8 @@ public abstract class BasePage {
     @FindBy(xpath = "//div[@class='board'][3]/div/table/thead/tr/th")
     public List<WebElement> creditAccountsColumns;
 
+    @FindBy(xpath = "//tbody/tr/td/a")
+    public List<WebElement> accountTypeLinkName;
 
 
 
