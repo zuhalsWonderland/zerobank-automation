@@ -38,6 +38,7 @@ public class AccountActivityPageStepDefs {
         System.out.println(actualOptions);
         System.out.println(expectedOptions);
         Assert.assertEquals(expectedOptions,actualOptions);
+        //We have a bug here
     }
 
     @Then("Transactions table should haave the following column names")
