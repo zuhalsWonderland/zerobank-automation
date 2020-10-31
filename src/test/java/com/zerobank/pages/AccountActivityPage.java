@@ -23,6 +23,26 @@ public class AccountActivityPage {
     @FindBy(xpath = "//table[@class='table table-condensed table-hover']/thead/tr/th")
     public List<WebElement> transactionColumns;
 
+    //Find Transactions locators
+    @FindBy(xpath = "//a[.='Find Transactions']")
+    public WebElement findTransactions;
+
+    @FindBy(id = "aa_description")
+    public WebElement description;
+
+    @FindBy(id = "aa_fromDate")
+    public WebElement fromDate;
+
+    @FindBy(id = "aa_toDate")
+    public WebElement toDate;
+
+    @FindBy(xpath = "//button[.='Find']")
+    public WebElement findButton;
+
+    @FindBy(xpath = "(//tbody)[2]/tr/td[1]")
+    public List<WebElement> resultsTable;
+
+
 
 
 
