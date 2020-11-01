@@ -28,4 +28,11 @@ public class PayBillsPage {
     @FindBy(xpath = "//div[@id='alert_content']/span")
     public WebElement paySuccessAlert;
 
+    @FindBy(xpath = "//a[.='Add New Payee']")
+    public WebElement AddNewPayee;
+
+    @FindBy(xpath = "//div[@id='alert_content']")
+    public WebElement newPayeeAlert;
+
+
 }

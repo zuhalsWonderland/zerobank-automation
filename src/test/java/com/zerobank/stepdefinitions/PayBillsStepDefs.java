@@ -3,10 +3,15 @@ package com.zerobank.stepdefinitions;
 import com.zerobank.pages.PayBillsPage;
 import com.zerobank.utilities.Driver;
 import io.cucumber.java.bs.A;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+
+import java.util.Map;
 
 public class PayBillsStepDefs {
     PayBillsPage payBillsPage = new PayBillsPage();
@@ -65,4 +70,24 @@ public class PayBillsStepDefs {
 
     }
 
+    @Given("creates	new	payee using following information")
+    public void creates_new_payee_using_following_information(Map<String,String> newPayeeData) throws InterruptedException {
+        Thread.sleep(2000);
+        payBillsPage.AddNewPayee.click();
+        Thread.sleep(2000);
+        Driver.get().findElement(By.id("np_new_payee_name")).sendKeys(newPayeeData.get("PayeeName"));
+        Driver.get().findElement(By.tagName("textarea")).sendKeys(newPayeeData.get("PayeeAddress"));
+        Driver.get().findElement(By.id("np_new_payee_account")).sendKeys(newPayeeData.get("Account"));
+        Driver.get().findElement(By.id("np_new_payee_details")).sendKeys(newPayeeData.get("PayeeDetails"));
+
+        Driver.get().findElement(By.cssSelector("input#add_new_payee")).click();
+
+    }
+
+
+    @Then("message {string} should be displayed")
+    public void messageShouldBeDisplayed(String successAlert) throws InterruptedException {
+        Thread.sleep(2000);
+        Assert.assertEquals(successAlert,payBillsPage.newPayeeAlert.getText());
+    }
 }
