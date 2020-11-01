@@ -4,9 +4,7 @@ import com.zerobank.pages.AccountActivityPage;
 import com.zerobank.utilities.BrowserUtils;
 import com.zerobank.utilities.Driver;
 import io.cucumber.java.bs.A;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import io.cucumber.java.en.*;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 
@@ -30,7 +28,8 @@ public class FindTransactionsStepDefs {
 }
 
     @When("clicks search")
-    public void clicks_search() {
+    public void clicks_search() throws InterruptedException {
+        Thread.sleep(2000);
         findTransactionsPart.findButton.click();
     }
 
@@ -67,9 +66,83 @@ public class FindTransactionsStepDefs {
         Assert.assertFalse(Driver.get().findElement(By.xpath("//td[.='" + date + "']")).isDisplayed());
     }
 
+    @When("the user enters description {string} and clicks search")
+    public void theUserEntersDescriptionAndClicksSearch(String searchWord) throws InterruptedException {
+       Thread.sleep(3000);
+        findTransactionsPart.description.sendKeys(searchWord);
+        findTransactionsPart.findButton.click();
+    }
+
+    @Then("results table should only show	descriptions containing	{string}")
+    public void resultsTableShouldOnlyShowDescriptionsContaining(String searchWord) throws InterruptedException {
+        Thread.sleep(2000);
+        System.out.println(findTransactionsPart.description.getText());
+        List<String>  descData = BrowserUtils.getElementsText(findTransactionsPart.descriptionTd);
+        Assert.assertTrue(descData.size() != 0);
+        for (int i = 0; i < descData.size(); i++) {
+            System.out.println(descData.get(i));
+            Assert.assertTrue(descData.get(i).contains(searchWord));
+        }
+        findTransactionsPart.description.clear();
+        //Description input is not case insensitive. We have a bug here.
+    }
 
 
+    @Then("results table should show at least one result under Deposit")
+    public void resultsTableShouldShowAtLeastOneResultUnderDeposit() throws InterruptedException {
+        Thread.sleep(2000);
+        int counter=0;
+        for (int i = 0; i < findTransactionsPart.depositTd.size(); i++) {
+           if (!(findTransactionsPart.depositTd.get(i).getText().equals(""))){
+               counter++;
+           }
+        }
+        Assert.assertTrue(counter > 0);
+    }
 
+    @And("results	table should show at least one result under	Withdrawal")
+    public void resultsTableShouldShowAtLeastOneResultUnderWithdrawal() throws InterruptedException {
+        Thread.sleep(2000);
+        int counter=0;
+        for (int i = 0; i < findTransactionsPart.withdrawalTd.size(); i++) {
+            if (!(findTransactionsPart.withdrawalTd.get(i).getText().equals(""))){
+                counter++;
+            }
+        }
+        Assert.assertTrue(counter > 0);
 
+    }
 
+    @When("user selects type {string}")
+    public void userSelectsType(String type) throws InterruptedException {
+       Driver.get().findElement(By.id("aa_type")).click();
+       Driver.get().findElement(By.xpath("//option[@value='" + type + "']")).click();
+       Thread.sleep(2000);
+       findTransactionsPart.findButton.click();
+    }
+
+    @But("results table should show no result under Withdrawal")
+    public void resultsTableShouldShowNoResultUnderWithdrawal() throws InterruptedException {
+        Thread.sleep(2000);
+        int counter=0;
+        for (int i = 0; i < findTransactionsPart.withdrawalTd.size(); i++) {
+            if (findTransactionsPart.withdrawalTd.get(i).getText().equals("")){
+                counter++;
+            }
+        }
+        Assert.assertTrue(counter > 0);
+    }
+
+    @And("results table  should show no result under Deposit")
+    public void resultsTableShouldShowNoResultUnderDeposit() throws InterruptedException {
+        Thread.sleep(2000);
+        int counter=0;
+        for (int i = 0; i < findTransactionsPart.depositTd.size(); i++) {
+            if (findTransactionsPart.depositTd.get(i).getText().equals("")){
+                counter++;
+            }
+        }
+        Assert.assertTrue(counter > 0);
+
+    }
 }

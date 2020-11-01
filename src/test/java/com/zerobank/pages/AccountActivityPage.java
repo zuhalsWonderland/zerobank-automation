@@ -42,6 +42,14 @@ public class AccountActivityPage {
     @FindBy(xpath = "(//tbody)[2]/tr/td[1]")
     public List<WebElement> resultsTable;
 
+    @FindBy(xpath = "(//tbody)[2]/tr/td[2]")
+    public List<WebElement> descriptionTd;
+
+    @FindBy(xpath = "(//tbody)[2]/tr/td[3]")
+    public List<WebElement> depositTd;
+
+    @FindBy(xpath = "(//tbody)[2]/tr/td[4]")
+    public List<WebElement> withdrawalTd;
 
 
 
