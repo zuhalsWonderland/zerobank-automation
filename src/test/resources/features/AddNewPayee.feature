@@ -1,7 +1,7 @@
 Feature:	Add	new	payee	under	pay	bills
   Background:
     Given the user logs in with valid credentials
-  @wip
+
   Scenario:	Add	a new payee
     Given the user navigates to Pay Bills page
     And creates	new	payee using following information

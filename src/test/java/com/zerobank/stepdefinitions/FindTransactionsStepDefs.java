@@ -87,32 +87,6 @@ public class FindTransactionsStepDefs {
         //Description input is not case insensitive. We have a bug here.
     }
 
-
-    @Then("results table should show at least one result under Deposit")
-    public void resultsTableShouldShowAtLeastOneResultUnderDeposit() throws InterruptedException {
-        Thread.sleep(2000);
-        int counter=0;
-        for (int i = 0; i < findTransactionsPart.depositTd.size(); i++) {
-           if (!(findTransactionsPart.depositTd.get(i).getText().equals(""))){
-               counter++;
-           }
-        }
-        Assert.assertTrue(counter > 0);
-    }
-
-    @And("results	table should show at least one result under	Withdrawal")
-    public void resultsTableShouldShowAtLeastOneResultUnderWithdrawal() throws InterruptedException {
-        Thread.sleep(2000);
-        int counter=0;
-        for (int i = 0; i < findTransactionsPart.withdrawalTd.size(); i++) {
-            if (!(findTransactionsPart.withdrawalTd.get(i).getText().equals(""))){
-                counter++;
-            }
-        }
-        Assert.assertTrue(counter > 0);
-
-    }
-
     @When("user selects type {string}")
     public void userSelectsType(String type) throws InterruptedException {
        Driver.get().findElement(By.id("aa_type")).click();
@@ -121,28 +95,52 @@ public class FindTransactionsStepDefs {
        findTransactionsPart.findButton.click();
     }
 
-    @But("results table should show no result under Withdrawal")
-    public void resultsTableShouldShowNoResultUnderWithdrawal() throws InterruptedException {
+
+    @Then("results table should show at least one result under {string}")
+    public void resultsTableShouldShowAtLeastOneResultUnder(String type) throws InterruptedException {
         Thread.sleep(2000);
         int counter=0;
-        for (int i = 0; i < findTransactionsPart.withdrawalTd.size(); i++) {
-            if (findTransactionsPart.withdrawalTd.get(i).getText().equals("")){
+        if(type.equals("Deposit")){
+
+         for (int i = 0; i < findTransactionsPart.depositTd.size(); i++) {
+           if (!(findTransactionsPart.depositTd.get(i).getText().equals(""))){
+               counter++;
+           }
+         }
+         Assert.assertTrue(counter > 0);
+        }else if(type.equals("Withdrawal")){
+
+           for (int i = 0; i < findTransactionsPart.withdrawalTd.size(); i++) {
+             if (!(findTransactionsPart.withdrawalTd.get(i).getText().equals(""))){
                 counter++;
-            }
-        }
+             }
+           }
         Assert.assertTrue(counter > 0);
+        }
     }
 
-    @And("results table  should show no result under Deposit")
-    public void resultsTableShouldShowNoResultUnderDeposit() throws InterruptedException {
+    @And("results table should show no result under {string}")
+    public void resultsTableShouldShowNoResultUnder(String type) throws InterruptedException {
         Thread.sleep(2000);
         int counter=0;
-        for (int i = 0; i < findTransactionsPart.depositTd.size(); i++) {
-            if (findTransactionsPart.depositTd.get(i).getText().equals("")){
-                counter++;
+        if(type.equals("Withdrawal")) {
+            for (int i = 0; i < findTransactionsPart.withdrawalTd.size(); i++) {
+                if (findTransactionsPart.withdrawalTd.get(i).getText().equals("")) {
+                    counter++;
+                }
             }
-        }
-        Assert.assertTrue(counter > 0);
+            System.out.println(counter + "Withdrawal");
+            Assert.assertTrue(counter == findTransactionsPart.withdrawalTd.size());
+        }else if(type.equals("Deposit")){
+            for (int i = 0; i < findTransactionsPart.depositTd.size(); i++) {
+               if (findTransactionsPart.depositTd.get(i).getText().equals("")){
+                counter++;
+               }
+            }
+            System.out.println(counter + "deposit");
+          Assert.assertTrue(counter == findTransactionsPart.depositTd.size());
 
+        }
+      }
     }
-}
+

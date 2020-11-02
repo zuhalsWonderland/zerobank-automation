@@ -28,13 +28,15 @@ Feature: Find Transactions in	Account	Activity
     When the user enters description "online" and clicks search
     Then results table should only show	descriptions containing	"ONLINE"
 
+
   Scenario:	Type
     When clicks search
-    Then results table should show at least one result under Deposit
-    And results	table should show at least one result under	Withdrawal
+    Then results table should show at least one result under "Deposit"
+    Then results table should show at least one result under "Withdrawal"
     When user selects type "DEPOSIT"
-    Then results table should show at least one result under Deposit
-    But results table should show no result under Withdrawal
+    Then results table should show at least one result under "Deposit"
+    And results table should show no result under "Withdrawal"
     When user selects type "WITHDRAWAL"
-    And results	table should show at least one result under	Withdrawal
-    And results table  should show no result under Deposit
+    Then results table should show at least one result under "Withdrawal"
+    And results table should show no result under "Deposit"
+
