@@ -139,7 +139,6 @@ public class FindTransactionsStepDefs {
             }
             System.out.println(counter + "deposit");
           Assert.assertTrue(counter == findTransactionsPart.depositTd.size());
-
         }
       }
     }

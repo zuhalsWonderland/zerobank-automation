@@ -34,5 +34,10 @@ public class PayBillsPage {
     @FindBy(xpath = "//div[@id='alert_content']")
     public WebElement newPayeeAlert;
 
+    @FindBy(xpath = "//a[.='Purchase Foreign Currency']")
+    public WebElement purchaseForeignCurrency;
+
+
+
 
 }
