@@ -7,6 +7,7 @@ import io.cucumber.java.bs.A;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
@@ -100,46 +101,41 @@ public class FindTransactionsStepDefs {
     public void resultsTableShouldShowAtLeastOneResultUnder(String type) throws InterruptedException {
         Thread.sleep(2000);
         int counter=0;
-        if(type.equals("Deposit")){
-
-         for (int i = 0; i < findTransactionsPart.depositTd.size(); i++) {
-           if (!(findTransactionsPart.depositTd.get(i).getText().equals(""))){
+        String path="";
+        if(type.equals("Deposit")) {
+           path =  "(//tbody)[2]/tr/td[3]";
+        }else if(type.equals("Withdrawal")){
+            path =  "(//tbody)[2]/tr/td[4]";
+        }
+        System.out.println(path + "path");
+        List<WebElement> data = Driver.get().findElements(By.xpath(path));
+        for (int i = 0; i < data.size(); i++) {
+           if (!(data.get(i).getText().equals(""))){
                counter++;
            }
          }
          Assert.assertTrue(counter > 0);
-        }else if(type.equals("Withdrawal")){
-
-           for (int i = 0; i < findTransactionsPart.withdrawalTd.size(); i++) {
-             if (!(findTransactionsPart.withdrawalTd.get(i).getText().equals(""))){
-                counter++;
-             }
-           }
-        Assert.assertTrue(counter > 0);
-        }
     }
 
     @And("results table should show no result under {string}")
     public void resultsTableShouldShowNoResultUnder(String type) throws InterruptedException {
+
         Thread.sleep(2000);
         int counter=0;
-        if(type.equals("Withdrawal")) {
-            for (int i = 0; i < findTransactionsPart.withdrawalTd.size(); i++) {
-                if (findTransactionsPart.withdrawalTd.get(i).getText().equals("")) {
+        String path="";
+        if(type.equals("Deposit")) {
+            path =  "(//tbody)[2]/tr/td[3]";
+        }else if(type.equals("Withdrawal")){
+            path =  "(//tbody)[2]/tr/td[4]";
+        }
+        List<WebElement> data = Driver.get().findElements(By.xpath(path));
+        for (int i = 0; i < data.size(); i++) {
+                if (data.get(i).getText().equals("")) {
                     counter++;
                 }
             }
             System.out.println(counter + "Withdrawal");
-            Assert.assertTrue(counter == findTransactionsPart.withdrawalTd.size());
-        }else if(type.equals("Deposit")){
-            for (int i = 0; i < findTransactionsPart.depositTd.size(); i++) {
-               if (findTransactionsPart.depositTd.get(i).getText().equals("")){
-                counter++;
-               }
-            }
-            System.out.println(counter + "deposit");
-          Assert.assertTrue(counter == findTransactionsPart.depositTd.size());
-        }
-      }
+            Assert.assertTrue(counter == data.size());
+     }
     }
 

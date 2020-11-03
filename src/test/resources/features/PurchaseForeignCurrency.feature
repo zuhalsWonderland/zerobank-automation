@@ -3,7 +3,7 @@ Feature:    Purchase Foreign Currency
   Background:
     Given the user logs in with valid credentials
     And the user navigates to Pay Bills page
-    
+
   Scenario:    Available	currencies
     When the user accesses the Purchase foreign currency cash tab
     Then following currencies should be	available
