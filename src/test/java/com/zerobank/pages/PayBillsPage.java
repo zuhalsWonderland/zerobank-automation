@@ -45,5 +45,11 @@ public class PayBillsPage {
     @FindBy(xpath = "//select[@id='pc_currency']/option")
     public List<WebElement> currencyList;
 
+    @FindBy(id = "pc_calculate_costs")
+    public WebElement calculateCosts;
+
+    @FindBy(id = "pc_amount")
+    public WebElement currencyAmount;
+
 
 }

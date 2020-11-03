@@ -28,7 +28,6 @@ Feature: Find Transactions in	Account	Activity
     When the user enters description "online" and clicks search
     Then results table should only show	descriptions containing	"ONLINE"
 
-@wip
   Scenario:	Type
     When clicks search
     Then results table should show at least one result under "Deposit"
